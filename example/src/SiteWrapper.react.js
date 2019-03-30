@@ -125,6 +125,30 @@ const navBarItems: Array<navItem> = [
         ? "https://tabler.github.io/tabler-react/documentation"
         : "/documentation",
   },
+  {
+    value: "ListaCliente",
+    to: "/listaCliente",
+    icon: "image",
+    LinkComponent: withRouter(NavLink),
+  },
+  {
+    value: "ListaPlataforma",
+    to: "/listaPlataforma",
+    icon: "image",
+    LinkComponent: withRouter(NavLink),
+  },
+  {
+    value: "ListaGps",
+    to: "/listaGps",
+    icon: "image",
+    LinkComponent: withRouter(NavLink),
+  },
+  {
+    value: "FormCliente",
+    to: "/formCliente",
+    icon: "check-square",
+    LinkComponent: withRouter(NavLink),
+  },
 ];
 
 const accountDropdownProps = {
