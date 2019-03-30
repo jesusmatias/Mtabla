@@ -25,8 +25,12 @@ import ChartsPage from "./interface/ChartsPage.react";
 import GalleryPage from "./GalleryPage.react";
 import MapCardsPage from "./components/MapCardsPage.react";
 import BlogPage from "./components/BlogPage.react";
+import ListaCliente from "./pages/ListaCliente";
+import ListaGPSestatus from "./pages/ListaGPSestatus";
+import FormCliente from "./pages/FormCliente";
 
 import "tabler-react/dist/Tabler.css";
+import ListaPlataformaTipo from "./pages/ListaPlataformaTipo";
 
 type Props = {||};
 
@@ -57,6 +61,10 @@ function App(props: Props): React.Node {
           <Route exact path="/profile" component={ProfilePage} />
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/store" component={StoreCardsPage} />
+          <Route exact path="/listaCliente" component={ListaCliente} />
+          <Route exact path="/listaPlataforma" component={ListaPlataformaTipo}/>
+          <Route exact path="/listaGps" component={ListaGPSestatus}/>
+          <Route exact path="/formCliente" component={FormCliente} />
           <Route component={Error404} />
         </Switch>
       </Router>

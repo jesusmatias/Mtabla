@@ -28,7 +28,9 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "husky": "0.15.0-rc.3"
+  },
   "browserslist": [
     ">0.2%",
     "not dead",
