@@ -20,15 +20,13 @@ class ListaGPSestatus extends Component {
     super();
     this.state = {
       gpsStatus: [],
+      id: "",
       nombre: "",
       estatus: "",
     };
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-  }
-  openModal() {
-    this.setState({ modalIsOpen: true });
   }
 
   afterOpenModal() {
@@ -40,7 +38,7 @@ class ListaGPSestatus extends Component {
   }
 
   componentDidMount() {
-    axios.get("https://jsonplaceholder.typicode.com/users").then(res => {
+    axios.get("http://34.228.130.148:8080/skyone/gpsEstatus/").then(res => {
       const gpsStatus = res.data;
       this.setState({ gpsStatus });
     });
@@ -50,11 +48,44 @@ class ListaGPSestatus extends Component {
     this.setState({ nombre: event.target.value });
   };
 
+  handleChangeEstatus = event => {
+    this.setState({ nombre: event.target.value });
+  };
+
   handleSubmit = event => {
     event.preventDefault();
     axios
-      .post("https://jsonplaceholder.typicode.com/users", {
+      .post("http://34.228.130.148:8080/skyone/gpsEstatus/", {
         nombre: this.state.nombre,
+        estatus: this.state.estatus,
+      })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      });
+  };
+
+  handleSubmitEditar = event => {
+    event.preventDefault();
+    axios
+      .put("http://34.228.130.148:8080/skyone/gpsEstatus/", {
+        id: this.state.id,
+        nombre: this.state.nombre,
+        estatus: this.state.estatus,
+      })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      });
+  };
+
+  handleSubmitDelete = event => {
+    event.preventDefault();
+    axios
+      .put("http://34.228.130.148:8080/skyone/gpsEstatus/", {
+        id: this.state.id,
+        nombre: this.state.nombre,
+        estatus: this.state.estatus,
       })
       .then(res => {
         console.log(res);
