@@ -120,7 +120,7 @@ class ListaCliente extends React.Component {
   };
 
   handleChangeVip = event => {
-    this.setState({ nota: event.target.value });
+    this.setState({ vip: event.target.value });
   };
 
   handleChangeLatitud = event => {
@@ -148,7 +148,7 @@ class ListaCliente extends React.Component {
         nota: this.state.nota,
         vip: this.state.vip,
         latitud: this.state.latitud,
-        longitud: this.setState.longitud,
+        longitud: this.state.longitud,
         estatus: this.state.estatus,
       })
       .then(res => {
@@ -171,7 +171,7 @@ class ListaCliente extends React.Component {
         nota: this.state.nota,
         vip: this.state.vip,
         latitud: this.state.latitud,
-        longitud: this.setState.longitud,
+        longitud: this.state.longitud,
         estatus: this.state.estatus,
       })
       .then(res => {
