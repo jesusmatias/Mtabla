@@ -37,37 +37,24 @@ class ListaCliente extends React.Component {
 
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  openModal(
-    id,
-    nombre,
-    nombreCorto,
-    domicilio,
-    contacto,
-    telefono,
-    extension,
-    nota,
-    vip,
-    latitud,
-    longitud,
-    estatus
-  ) {
-    console.log(nombre);
+  handleInputChange(event){
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+    console.log("vip" + value);
     this.setState({
-      modalIsOpen: true,
-      id: id,
-      nombre: nombre,
-      nombreCorto: nombreCorto,
-      domicilio: domicilio,
-      contacto: contacto,
-      telefono: telefono,
-      extension: extension,
-      nota: nota,
-      vip: vip,
-      latitud: latitud,
-      longitud: longitud,
-      estatus: estatus,
+      [name] : value
+    });
+  }
+
+  
+
+  openModal(id,nombre,nombreCorto,domicilio,contacto,telefono,extension,nota,vip,latitud,longitud,estatus) {
+    console.log(nombre);
+    this.setState({modalIsOpen: true,id: id,nombre: nombre, nombreCorto: nombreCorto, domicilio: domicilio, contacto: contacto,telefono: telefono,extension: extension,nota: nota,vip: vip,latitud: latitud,longitud: longitud,estatus: estatus,
     });
   }
 
@@ -80,8 +67,7 @@ class ListaCliente extends React.Component {
   }
 
   componentDidMount() {
-    axios
-      .get("http://34.228.130.148:8080/skyone/cliente/")
+    axios.get("http://34.228.130.148:8080/skyone/cliente/")
       .then(res => {
         const clientes = res.data;
         this.setState({ clientes });
@@ -132,13 +118,26 @@ class ListaCliente extends React.Component {
   };
 
   handleChangeEstatus = event => {
-    this.setState({ nota: event.target.value });
-  };
+    const target = event.target;
+    const value= target.type === 'checkbox' ? target.checked :target.value;
+    const name = target.name;
+    console.log("estatus" + value);
+    this.setState({
+      [name] : value
+    });
+  }
 
   handleSubmit = event => {
     event.preventDefault();
-    axios
-      .post("http://34.228.130.148:8080/skyone/cliente/", {
+    var estadoVip = 0;
+    if(this.state.vip === true){
+      estadoVip = 1;
+    }
+    var estadoEstatus = 0;
+    if(this.state.estatus === true){
+      estadoEstatus = 1;
+    }
+    axios.post("http://34.228.130.148:8080/skyone/cliente/", {
         nombre: this.state.nombre,
         nombreCorto: this.state.nombreCorto,
         domicilio: this.state.domicilio,
@@ -146,10 +145,10 @@ class ListaCliente extends React.Component {
         telefono: this.state.telefono,
         extension: this.state.extension,
         nota: this.state.nota,
-        vip: this.state.vip,
+        vip: estadoVip,
         latitud: this.state.latitud,
         longitud: this.state.longitud,
-        estatus: this.state.estatus,
+        estatus: estadoEstatus,
       })
       .then(res => {
         console.log(res);
@@ -159,8 +158,7 @@ class ListaCliente extends React.Component {
 
   handleSubmitEditar = event => {
     event.preventDefault();
-    axios
-      .put("http://34.228.130.148:8080/skyone/cliente", {
+    axios.put("http://34.228.130.148:8080/skyone/cliente", {
         id: this.state.id,
         nombre: this.state.nombre,
         nombreCorto: this.state.nombreCorto,
@@ -325,18 +323,18 @@ class ListaCliente extends React.Component {
                           <Form.Checkbox
                             id="vip"
                             name="vip"
-                            onChange={this.handleChangeVip}
-                            value={this.state.vip}
                             label="vip"
+                            checked={this.state.vip}
+                            onChange={this.handleInputChange}
                           />
                         </Grid.Col>
                         <Grid.Col md={3}>
                           <Form.Checkbox
                             id="estatus"
                             name="estatus"
-                            onChange={this.handleCheckboxChange}
-                            value={this.state.estatus}
                             label="Activo"
+                            checked={this.state.estatus}
+                            onChange={this.handleChangeEstatus}   
                           />
                         </Grid.Col>
                       </Grid.Row>
@@ -377,38 +375,16 @@ class ListaCliente extends React.Component {
                           />
                         </Grid.Col>
                         <Grid.Col md={6}>
-                          <Form.Input
-                            type="text"
-                            id="longitud"
-                            name="longitud"
-                            onChange={this.handleChangeLongitud}
-                            value={this.state.longitud}
-                            label="Longitud"
-                            placeholder="longitud"
+                          <Form.Input type="text" id="longitud" name="longitud" onChange={this.handleChangeLongitud} value={this.state.longitud} label="Longitud"placeholder="longitud"
                           />
                         </Grid.Col>
                       </Grid.Row>
                     </Card.Body>
                     <Card.Footer>
                       <Button.List aling="right">
-                        <Button
-                          color="green"
-                          onClick={this.handleSubmit.bind(this)}
-                        >
-                          Agregar
-                        </Button>
-                        <Button
-                          color="primary"
-                          onClick={this.handleSubmitEditar.bind(this)}
-                        >
-                          Editar
-                        </Button>
-                        <Button
-                          color="red"
-                          onClick={this.handleSubmitDelete.bind(this)}
-                        >
-                          Borrar
-                        </Button>
+                        <Button color="green" onClick={this.handleSubmit.bind(this)}>Agregar</Button>
+                        <Button color="primary" onClick={this.handleSubmitEditar.bind(this)}>Editar</Button>
+                        <Button color="red" onClick={this.handleSubmitDelete.bind(this)}>Borrar</Button>
                       </Button.List>
                     </Card.Footer>
                   </Card>
