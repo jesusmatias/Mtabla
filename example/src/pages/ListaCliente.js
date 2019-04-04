@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Page, Button, Form, Card, Grid, Checkbox } from "tabler-react";
+import { Table, Page, Button, Form, Card, Grid } from "tabler-react";
 import axios from "axios";
 import SiteWrapper from "../SiteWrapper.react";
 import Modal from "react-modal";
@@ -158,6 +158,21 @@ class ListaCliente extends React.Component {
 
   handleSubmitEditar = event => {
     event.preventDefault();
+    var editaVip = 0;
+    if(this.state.vip === false){
+      editaVip = 0;
+    }else{
+      editaVip =1;
+    }
+
+    var editaEstatus = 0;
+    if(this.state.estatus === false){
+      editaEstatus = 0;
+    }else{
+      editaEstatus = 1;
+    }
+
+    
     axios.put("http://34.228.130.148:8080/skyone/cliente", {
         id: this.state.id,
         nombre: this.state.nombre,
@@ -167,10 +182,10 @@ class ListaCliente extends React.Component {
         telefono: this.state.telefono,
         extension: this.state.extension,
         nota: this.state.nota,
-        vip: this.state.vip,
+        vip: editaVip,
         latitud: this.state.latitud,
         longitud: this.state.longitud,
-        estatus: this.state.estatus,
+        estatus: editaEstatus,
       })
       .then(res => {
         console.log(res);
@@ -248,7 +263,6 @@ class ListaCliente extends React.Component {
             onAfterOpen={this.afterOpenModal}
             onRequestClose={this.closeModal}
             style={customStyles}
-            contentLabel="ejemplo Modal"
           >
             <h2 ref={subtitle => (this.subtitle = subtitle)} />
             <Button color="red" aling="right" onClick={this.closeModal}>
@@ -382,7 +396,7 @@ class ListaCliente extends React.Component {
                     </Card.Body>
                     <Card.Footer>
                       <Button.List aling="right">
-                        <Button color="green" onClick={this.handleSubmit.bind(this)}>Agregar</Button>
+                        <Button color="green" onClick={this.handleSubmit.bind(this)}>Guardar</Button>
                         <Button color="primary" onClick={this.handleSubmitEditar.bind(this)}>Editar</Button>
                         <Button color="red" onClick={this.handleSubmitDelete.bind(this)}>Borrar</Button>
                       </Button.List>

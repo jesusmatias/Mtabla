@@ -29,6 +29,10 @@ class ListaPlataformaTipo extends Component{
         this.closeModal = this.closeModal.bind(this);
     }
 
+    handleChange = event =>{
+      this.setState({nombre:event.target.value});
+    }
+
     openModal(id,nombre){
         this.setState({modalIsOpen:true,id:id,nombre:nombre});
       }
@@ -49,10 +53,6 @@ class ListaPlataformaTipo extends Component{
         });
       }
 
-      handleChange = event =>{
-        this.setState({nombre:event.target.value});
-      }
-
     handleSubmit = event =>{
         event.preventDefault();
         axios.post("http://34.228.130.148:8080/skyone/plataformatipo",{nombre:this.state.nombre})
@@ -61,6 +61,15 @@ class ListaPlataformaTipo extends Component{
             console.log(res.data);
         })
       }
+
+    handleSubmitEditar = event =>{
+        event.preventDefault(); 
+        axios.put("http://34.228.130.148:8080/skyone/plataformatipo",{id: this.state.id, nombre: this.state.nombre})
+          .then(res => {
+            console.log(res);
+            console.log(res.data);
+          })
+      }  
     
     handleSubmitDelete = event =>{
       console.log(this.state.id);
@@ -71,16 +80,6 @@ class ListaPlataformaTipo extends Component{
         console.log(res.data);
       })
     }
-
-    handleSubmitEditar = event =>{
-      event.preventDefault(); 
-      axios.put("http://34.228.130.148:8080/skyone/plataformatipo",{id: this.state.id, nombre: this.state.nombre})
-        .then(res => {
-          console.log(res);
-          console.log(res.data);
-        })
-    }
-
 
     render(){
         return(
