@@ -149,6 +149,12 @@ const navBarItems: Array<navItem> = [
     icon: "check-square",
     LinkComponent: withRouter(NavLink),
   },
+  {
+    value: "Lista Users",
+    to: "/ListaUsers",
+    icon: "check-square",
+    LinkComponent: withRouter(NavLink),
+  },
 ];
 
 const accountDropdownProps = {

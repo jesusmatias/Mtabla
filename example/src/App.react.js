@@ -30,6 +30,7 @@ import ListaGPSestatus from "./pages/ListaGPSestatus";
 import FormCliente from "./pages/FormCliente";
 import "tabler-react/dist/Tabler.css";
 import ListaPlataformaTipo from "./pages/ListaPlataformaTipo";
+import ListaUser from "./pages/ListaUsers";
 
 type Props = {||};
 
@@ -68,6 +69,7 @@ function App(props: Props): React.Node {
           />
           <Route exact path="/listaGps" component={ListaGPSestatus} />
           <Route exact path="/formCliente" component={FormCliente} />
+          <Route exact path="/listaUsers" component={ListaUser} />
           <Route component={Error404} />
         </Switch>
       </Router>
